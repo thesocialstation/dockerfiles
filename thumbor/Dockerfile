@@ -1,9 +1,10 @@
-FROM ubuntu:14.04
-MAINTAINER elprans@sprymix.com
+FROM ubuntu:trusty
+MAINTAINER ron@thesocialstation.com
 
 ENV APPDIR /srv/thumbor
-ENV THUMBOR_VERSION 4.4.1
-ENV THUMBOR_ENGINE graphicsmagick
+ENV THUMBOR_VERSION 5.0.4
+ENV THUMBOR_ENGINE opencv
+ENV OPENCV_ENGINE_VERSION 1.0.1
 ENV GRAPHICSMAGICK_ENGINE_VERSION 0.1.1
 
 EXPOSE 8888
@@ -22,8 +23,8 @@ RUN DEBIAN_FRONTEND=noninteractive \
 ENV LANG en_US.UTF-8
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
-                patch wget unzip python-dev python-pip \
-        && apt-get clean
+		patch wget unzip python-dev python-pip \
+		&& apt-get clean
 
 RUN mkdir -p /setup
 

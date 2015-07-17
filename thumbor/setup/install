@@ -27,9 +27,7 @@ _install() {
                 $(cat requirements | grep -v "^\(libpngwriter\|libfaac\|libtiffxx0c2\|libavcodec53\|libavformat53\|gstreamer0.10-ffmpeg\|libtiff4\|redis-server\)")
     fi
 
-    python setup.py install
-
-    pip install "raven<5"
+    pip install .
 
     if [ -n "$afterhook" ]; then
         $afterhook
