@@ -41,6 +41,23 @@ _install_thumbor() {
     cp -f debian/thumbor.conf /etc/thumbor.conf
 }
 
+_install_thumbor_community() {
+    local pkg=$1 ver=$2
+
+    cd /tmp
+
+    # Download the snapshot
+    wget -q https://github.com/thumbor-community/$pkg/archive/${ver}.zip && \
+        unzip ${ver}.zip >/dev/null && rm -f ${ver}.zip
+
+    cd "$pkg-${ver}"
+
+    pip install .
+
+    cd /
+    rm -rf "/tmp/$pkg-${ver}"
+}
+
 _install thumbor $THUMBOR_VERSION _install_thumbor
 
 if [ "${THUMBOR_ENGINE}" = "opencv" ]; then
@@ -51,3 +68,5 @@ else
     echo "ERROR: Unsupported thumbor engine: ${THUMBOR_ENGINE}" >&2
     exit 1
 fi
+
+_install_thumbor_community aws $THUMBOR_AWS_VERSION
